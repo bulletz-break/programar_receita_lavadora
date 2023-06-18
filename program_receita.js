@@ -81,7 +81,6 @@ window.onload = function() {
     receita_data["relacao_ml_s"] = true; // Mililitros
 
     document.querySelector("#pg_receita").addEventListener("mousedown", (e) => {
-        console.log("clicked");
         if(document.querySelector("#pg_receita_finish_box_container").className == '') return;
         if(!document.querySelector("#pg_receita_finish_box_container").contains(e.target)) {
             pg_receita_button_finish(true);
@@ -240,7 +239,6 @@ function pg_receita_drop_json_success() {
 
 // Quando a receita for enviada para a página
 function pg_receita_drop_json(pg_receita_event) {
-    console.log(pg_receita_event);
 
     let pg_receita_file = "";
 
@@ -275,7 +273,6 @@ function pg_receita_drop_json(pg_receita_event) {
     });
     pg_receita_reader.readAsText(pg_receita_file);
 
-    console.log(pg_receita_file_data);
 }
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -383,7 +380,6 @@ function pg_receita_switch_style(pg_array, pg_index, pg_name_image, switch_style
 // Funções gerais (lavar, centrifugar, carregar, etc.)
 // - Carregar
 function pg_receita_carregar_maquina() { 
-    console.log("carregar maquina");
     if(receita_data["Carregar"]) { // Desativar
         pg_receita_switch_style(options_geral, "Carregar", pg_receita_image_carregar_off, false);
         receita_data["Carregar"] = false;
@@ -422,7 +418,6 @@ function pg_receita_centrifugar() {
 
 // - Dreno
 function pg_receita_dreno() {
-    console.log(receita_data["Dreno"])
     if(receita_data["Dreno"]) { // Desativar
         pg_receita_switch_style(options_geral, "Dreno", pg_receita_image_dreno_1_off, false);
         receita_data["Dreno"] = false;
@@ -703,16 +698,13 @@ function pg_receita_button_back() {
 function pg_receita_insert_data() {
     let pg_receita_temp_step_index = receita_data["step_index"];
 
-    console.log(receita_data["step_index"]);
     receita_data = JSON.parse(JSON.stringify(receita_object[Number(receita_data["step_index"] - 1)]));
 
-    console.log(receita_data);
 
     receita_data["step_index"] = pg_receita_temp_step_index;
 
     options_geral["step_index"].textContent = "Passo: " + Number(receita_data["step_index"]);
 
-    console.log(receita_data);
 
     options_geral["StepName"].value = receita_data["StepName"];
     if(receita_data["Carregar"]) {
@@ -734,7 +726,6 @@ function pg_receita_insert_data() {
         options_lavar["tempo"].value = receita_data["Tempo"];
 
         console.clear();
-        console.log(receita_data);
 
         if(receita_data["NivelAgua"] == 1) { pg_receita_lavar_nivel_baixo(); }
         else if(receita_data["NivelAgua"] == 2) { pg_receita_lavar_nivel_medio(); }
@@ -789,9 +780,7 @@ function pg_receita_button_next() {
     options_geral["step_index"].textContent = "Passo: " + Number(receita_data["step_index"]);
     pg_receita_reset_elements();
 
-    console.log(receita_data["step_index"]);
     if(receita_object[receita_data["step_index"] - 1]) {
-        console.log("Tem proximo");
         pg_receita_insert_data();
     }
 }
@@ -807,9 +796,6 @@ function pg_receita_button_insert() {
         else { break; }
     }
 
-    console.log("");
-    console.log("pg_receita_temp = " + pg_receita_temp);
-    console.log("");
 
     while(pg_receita_temp > 0) {
         receita_object[(receita_data["step_index"] - 1) + pg_receita_temp] = receita_object[(receita_data["step_index"] - 1) + (pg_receita_temp - 1)];
@@ -824,7 +810,6 @@ function pg_receita_button_insert() {
 function pg_receita_button_delete() {
     if(receita_data["step_index"] <= 1) { return pg_receita_reset_elements(); }
 
-    console.log("receita_object.splice(" + (receita_data["step_index"] - 1) + ", 1);");
     receita_object.splice(receita_data["step_index"] - 1, 1);
 
     pg_receita_reset_elements();
@@ -951,7 +936,6 @@ function pg_receita_reset_elements() {
         "step_index"    : _pg_receita_step_index
     };
 
-    console.log(receita_data);
 
     // Resetando Geral
     pg_receita_set_src(options_geral["Carregar"], pg_receita_image_carregar_off);
