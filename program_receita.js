@@ -821,7 +821,7 @@ function pg_receita_button_delete() {
 
 // Função que mostra a caixa para inserir o nome da receita
 function pg_receita_button_box_finish() {
-    document.querySelector("#pg_receita_save").addEventListener("keydown", (e) => {
+    document.querySelector("#pg_receita_finish_input").addEventListener("keydown", (e) => {
         if(e["keyCode"] == 13) { pg_receita_button_finish(); }
     });
 
@@ -836,6 +836,7 @@ function pg_receita_button_finish(just_hide = false) {
     if(document.querySelector("#pg_receita_finish_input").value == "" || document.querySelector("#pg_receita_finish_input").value.length < 2) return;
 
     document.querySelector("#pg_receita").style = "opacity: 1; background-color: white; pointer-events:all";
+    document.querySelector("#pg_receita_elements_container").style = "pointer-events: all";
     document.querySelector("#pg_receita_buttons_list").style = "opacity: 1; pointer-events: all";
     document.querySelector("#pg_receita_finish_box_container").style.display = "none";
     document.querySelector("#pg_receita_finish_box_container").classList.toggle("pg_receita_finish_box_container_show");
